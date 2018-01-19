@@ -3,7 +3,7 @@
 
 ## Getting started
 
-`$ npm install react-native-zendesk-chat-api --save`
+`$ yarn add react-native-zendesk-chat-api`
 
 ### Mostly automatic installation
 
@@ -17,7 +17,7 @@
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
 2. Go to `node_modules` ➜ `react-native-zendesk-chat-api` and add `RNZendeskChatApi.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRNZendeskChatApi.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`Cmd+R`)<
+4. Run your project (`Cmd+R`)
 
 #### Android
 
@@ -45,9 +45,43 @@
 
 ## Usage
 ```javascript
-import RNZendeskChatApi from 'react-native-zendesk-chat-api';
+import { ZendeskClient } from 'react-native-zendesk-chat-api';
 
-// TODO: What to do with the module?
-RNZendeskChatApi;
+class MyChatComponent extends Component {
+    ...
+    componentDidMount() {
+        this._client = new ZendeskClient({
+            accountKey: 'your_account_key',
+            userInfo: {
+                name: user.getFullName(),
+                email: user.getEmail()
+            },
+            onConnect: this.handleConnect,
+            onDisconnect: this.handleDisconnect,
+            onChatEvent: this.handleChatEvent,
+            onAgentEvent: this.handleAgentEvent
+        });
+    }
+    
+    startChat() {
+        this._client.startChat();
+    }
+    
+    onConnect() {
+        this.setState({ connected: true });
+    }
+    
+    onDisconnect() {
+        this.setState({ connected: false });
+    }
+    
+    onChatEvent(event) {
+        this.setState({ messages: this.state.messages.addMessage(event.message)})
+    }
+    
+    ...
+}
 ```
+
+You can also use `RNZendeskChatApi` alone if you want to deal directly with the Native Module
   

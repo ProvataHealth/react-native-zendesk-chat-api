@@ -1,8 +1,8 @@
 
 {
   "name": "react-native-zendesk-chat-api",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Native modules for interacting with the Zendesk Chat API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
